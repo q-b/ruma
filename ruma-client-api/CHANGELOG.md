@@ -42,6 +42,7 @@ Breaking changes:
 * `r0::sync::sync_events::SetPresence` has been moved and renamed. Use `presence::PresenceState`
   from `ruma` or `ruma-common`.
 * `r0::push::Action` has been moved. Import it from `ruma` or `ruma-common`.
+* Replace `r0::keys::{AlgorithmAndDeviceId, KeyAlgorithm}` with `ruma_identifiers::{DeviceKeyId, DeviceKeyAlgorithm}`, respectively
 
 Improvements:
 
