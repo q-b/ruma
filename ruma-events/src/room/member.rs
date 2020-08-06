@@ -3,7 +3,7 @@
 use std::collections::BTreeMap;
 
 use ruma_events_macros::StateEventContent;
-use ruma_identifiers::UserId;
+use ruma_identifiers::{ServerKeyId, ServerName, UserId};
 use serde::{Deserialize, Serialize};
 use strum::{Display, EnumString};
 
@@ -108,7 +108,7 @@ pub struct SignedContent {
 
     /// A single signature from the verifying server, in the format specified by the Signing Events
     /// section of the server-server API.
-    pub signatures: BTreeMap<String, BTreeMap<String, String>>,
+    pub signatures: BTreeMap<Box<ServerName>, BTreeMap<ServerKeyId, String>>,
 
     /// The token property of the containing third_party_invite object.
     pub token: String,
@@ -244,7 +244,10 @@ impl StrippedStateEvent<MemberEventContent> {
 
 #[cfg(test)]
 mod tests {
-    use std::time::{Duration, UNIX_EPOCH};
+    use std::{
+        convert::TryInto,
+        time::{Duration, UNIX_EPOCH},
+    };
 
     use maplit::btreemap;
     use matches::assert_matches;
@@ -406,8 +409,8 @@ mod tests {
                 && third_party_displayname == "alice"
                 && mxid == "@alice:example.org"
                 && signatures == btreemap! {
-                    "magic.forest".to_owned() => btreemap! {
-                        "ed25519:3".to_owned() => "foobar".to_owned()
+                    "magic.forest".try_into().unwrap() => btreemap! {
+                        "ed25519:3".try_into().unwrap() => "foobar".to_owned()
                     }
                 }
                 && token == "abc123"
@@ -492,8 +495,8 @@ mod tests {
                 && third_party_displayname == "alice"
                 && mxid == "@alice:example.org"
                 && signatures == btreemap! {
-                    "magic.forest".to_owned() => btreemap! {
-                        "ed25519:3".to_owned() => "foobar".to_owned()
+                    "magic.forest".try_into().unwrap() => btreemap! {
+                        "ed25519:3".try_into().unwrap() => "foobar".to_owned()
                     }
                 }
                 && token == "abc123"

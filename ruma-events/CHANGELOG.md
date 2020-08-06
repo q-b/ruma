@@ -1,5 +1,11 @@
 # [unreleased]
 
+Breaking changes:
+
+* Use `ruma_identifiers::{ServerName, ServerKeyId}` in `signatures` fields of
+  `pdu::RoomV1Pdu, RoomV1PduStub, RoomV3Pdu, RoomV3PduStub}` and
+  `room::member::SignedContent`.
+
 # 0.22.0
 
 Breaking changes:

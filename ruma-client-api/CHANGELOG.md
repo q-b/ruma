@@ -4,6 +4,8 @@ Breaking changes:
 
 * Update type of `limit` in `r0::user_directory::search_users` from
   `Option<UInt>` to `UInt`
+* Use `ruma_identifiers::{ServerName, ServerKeyId}` in `signatures` fields of
+  `r0::room::membership::ThirdPartySigned`.
 
 # 0.10.0
 
